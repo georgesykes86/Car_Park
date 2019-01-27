@@ -1,13 +1,15 @@
+package config;
+
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Data;
+import model.BayType;
+import model.VehicleType;
 
 @Data
 public class ParkingLotConfig {
 
-  private int smallBays;
-  private int mediumBays;
-  private int largeBays;
+  private Map<BayType, Integer> bayCountMap;
   private final Map<VehicleType, BayType> vehicleMap = new HashMap<VehicleType, BayType>() {{
     put(VehicleType.BIKE, BayType.SMALL);
     put(VehicleType.CAR, BayType.MEDIUM);
@@ -17,8 +19,10 @@ public class ParkingLotConfig {
 
 
   public ParkingLotConfig(int smallBays, int mediumBays, int largeBays) {
-    this.smallBays = smallBays;
-    this.mediumBays = mediumBays;
-    this.largeBays = largeBays;
+    bayCountMap = new HashMap<BayType, Integer>() {{
+      bayCountMap.put(BayType.SMALL, smallBays);
+      bayCountMap.put(BayType.MEDIUM, mediumBays);
+      bayCountMap.put(BayType.LARGE, largeBays);
+    }};
   }
 }

@@ -1,5 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import domain.BayFactory;
+import model.Bay;
+import model.BayType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

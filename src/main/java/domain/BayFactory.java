@@ -1,3 +1,8 @@
+package domain;
+
+import model.Bay;
+import model.BayType;
+
 public class BayFactory implements Factory {
 
   @Override

@@ -1,3 +1,5 @@
+package model;
+
 public class Bus extends Vehicle {
 
   public Bus(String license, String colour) {
