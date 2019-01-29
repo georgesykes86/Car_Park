@@ -1,6 +1,7 @@
 package domain;
 
 import config.ParkingLotConfig;
+import java.util.ArrayList;
 import model.Bay;
 import model.BayType;
 import model.Vehicle;
@@ -8,28 +9,26 @@ import model.Vehicle;
 public class BayHandler {
 
   private BayRepository repository;
+  private static ArrayList<BayType> bayHierachy = new ArrayList<BayType>() {{
+      add(BayType.SMALL);
+      add(BayType.MEDIUM);
+      add(BayType.LARGE);
+    }};
 
-
-  public void configure(BayRepository repository, ParkingLotConfig config) {
+  public BayHandler(BayRepository repository) {
     this.repository = repository;
+  }
+
+  public void configure(ParkingLotConfig config) {
     this.repository.configure(config);
   }
 
-  private Bay getSuitableBayFor(Vehicle vehicle) throws RuntimeException {
-    BayType type = vehicleBayCompatibilityMap.get(vehicle.getType());
-    if (type == BayType.SMALL) {
-      if (freeSmallBays.size() > 0) { return freeSmallBays.remove(0); }
-      else if (freeMediumBays.size() > 0) { return freeMediumBays.remove(0); }
-      else if (freeLargeBays.size() > 0) { return freeLargeBays.remove(0); }
-      else { throw new RuntimeException("No free parking bays"); }
-    } else if (type == BayType.MEDIUM) {
-      if (freeMediumBays.size() > 0) { return freeMediumBays.remove(0); }
-      else if (freeLargeBays.size() > 0) { return freeLargeBays.remove(0); }
-      else { throw new RuntimeException("No free parking bays"); }
-    } else {
-      if (freeLargeBays.size() > 0) { return freeLargeBays.remove(0); }
-      else { throw new RuntimeException("No free parking bays"); }
+  public Bay getSuitableBay(BayType type) throws RuntimeException {
+    for(int i = bayHierachy.indexOf(type); i < bayHierachy.size(); i++) {
+      Bay repositoryReturn = repository.getBayOfType(bayHierachy.get(i));
+      if (repositoryReturn.getClass() == Bay.class) { return repositoryReturn; }
     }
+    throw new RuntimeException("No free bays");
   }
 
   public int getFreeSpaces() {

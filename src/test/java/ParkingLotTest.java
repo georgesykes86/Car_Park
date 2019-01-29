@@ -36,39 +36,39 @@ public class ParkingLotTest {
   @Mock
   private Bay bay;
 
-  @BeforeEach
-  public void setUp() {
-    Mockito.lenient().when(config.getSmallBays()).thenReturn(2);
-    Mockito.lenient().when(config.getMediumBays()).thenReturn(2);
-    Mockito.lenient().when(config.getLargeBays()).thenReturn(2);
-    when(bike.getType()).thenReturn(VehicleType.BIKE);
-    when(car.getType()).thenReturn(VehicleType.CAR);
-    Mockito.lenient().when(factory.getInstance(any())).thenReturn(bay);
-    parkingLot = new ParkingLot(factory, config);
-  }
-
-  @Test
-  public void parkMotorBikeWhenEmptyTest() {
-    when(bike.getLicense()).thenReturn("abc123");
-    assertEquals(BayType.SMALL, parkingLot.park(bike));
-  }
-
-  @Test
-  public void parkTwoMotorBikesTest() {
-    when(bike.getLicense())
-        .thenReturn("abc123")
-        .thenReturn("def456");
-    parkingLot.park(bike);
-    assertEquals(BayType.SMALL, parkingLot.park(bike));
-  }
-
-  @Test
-  public void parkBikeAndCarTest() {
-    when(bike.getLicense()).thenReturn("abc123");
-    when(car.getLicense()).thenReturn("car123");
-    assertEquals(BayType.SMALL, parkingLot.park(bike));
-    assertEquals(BayType.MEDIUM, parkingLot.park(car));
-  }
+//  @BeforeEach
+//  public void setUp() {
+//    Mockito.lenient().when(config.getSmallBays()).thenReturn(2);
+//    Mockito.lenient().when(config.getMediumBays()).thenReturn(2);
+//    Mockito.lenient().when(config.getLargeBays()).thenReturn(2);
+//    when(bike.getType()).thenReturn(VehicleType.BIKE);
+//    when(car.getType()).thenReturn(VehicleType.CAR);
+//    Mockito.lenient().when(factory.getInstance(any())).thenReturn(bay);
+//    parkingLot = new ParkingLot(factory, config);
+//  }
+//
+//  @Test
+//  public void parkMotorBikeWhenEmptyTest() {
+//    when(bike.getLicense()).thenReturn("abc123");
+//    assertEquals(BayType.SMALL, parkingLot.park(bike));
+//  }
+//
+//  @Test
+//  public void parkTwoMotorBikesTest() {
+//    when(bike.getLicense())
+//        .thenReturn("abc123")
+//        .thenReturn("def456");
+//    parkingLot.park(bike);
+//    assertEquals(BayType.SMALL, parkingLot.park(bike));
+//  }
+//
+//  @Test
+//  public void parkBikeAndCarTest() {
+//    when(bike.getLicense()).thenReturn("abc123");
+//    when(car.getLicense()).thenReturn("car123");
+//    assertEquals(BayType.SMALL, parkingLot.park(bike));
+//    assertEquals(BayType.MEDIUM, parkingLot.park(car));
+//  }
 
 
 }

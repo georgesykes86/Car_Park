@@ -19,10 +19,9 @@ public class ParkingLotConfig {
 
 
   public ParkingLotConfig(int smallBays, int mediumBays, int largeBays) {
-    bayCountMap = new HashMap<BayType, Integer>() {{
+    bayCountMap = new HashMap<>();
       bayCountMap.put(BayType.SMALL, smallBays);
       bayCountMap.put(BayType.MEDIUM, mediumBays);
       bayCountMap.put(BayType.LARGE, largeBays);
-    }};
   }
 }

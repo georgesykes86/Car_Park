@@ -3,6 +3,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import config.ParkingLotConfig;
 import domain.BayFactory;
+import domain.BayHandler;
+import domain.BayRepository;
 import domain.ParkingLot;
 import model.BayType;
 import model.Bike;
@@ -19,6 +21,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class IntegrationTest {
 
   private ParkingLot parkingLot;
+  private BayRepository repository;
+  private BayHandler bayHandler;
   private ParkingLotConfig config;
   private BayFactory factory;
   private Vehicle bike;
@@ -31,12 +35,14 @@ public class IntegrationTest {
   public void setUp() {
     config = new ParkingLotConfig(2,2,2);
     factory = new BayFactory();
+    repository = new BayRepository(factory);
+    bayHandler = new BayHandler(repository);
     bike = new Bike("BIKE1", "BLUE");
     secondBike = new Bike("BIKE2", "BLACK");
     car = new Car("CAR1", "RED");
     truck = new Truck("TRUCK1", "GREEN");
     bus = new Bus("BUS1", "RED");
-    parkingLot = new ParkingLot(factory, config);
+    parkingLot = new ParkingLot(config, bayHandler);
   }
 
   @Test

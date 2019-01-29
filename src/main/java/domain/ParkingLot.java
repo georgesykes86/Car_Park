@@ -14,17 +14,22 @@ public class ParkingLot {
   private Map<VehicleType, BayType> vehicleBayCompatibilityMap;
   private Map<String, Bay> registeredVehicleMap = new HashMap<>();
 
-  public ParkingLot(ParkingLotConfig config, BayRepository repository, BayHandler handler) {
+  public ParkingLot(ParkingLotConfig config, BayHandler handler) {
     this.bayHandler = handler;
-    this.bayHandler.configure(repository, config);
+    this.bayHandler.configure(config);
     vehicleBayCompatibilityMap = config.getVehicleMap();
   }
 
   public Bay park(Vehicle vehicle) throws RuntimeException {
     checkIfAlreadyParked(vehicle);
-    Bay freeBay = bayHandler.getSuitableBay(vehicle);
+    Bay freeBay = getSuitableBayFor(vehicle);
     registerVehicleAsParked(vehicle, freeBay);
     return freeBay;
+  }
+
+  private Bay getSuitableBayFor(Vehicle vehicle) {
+    BayType type = vehicleBayCompatibilityMap.get(vehicle.getType());
+    return bayHandler.getSuitableBay(type);
   }
 
   public Vehicle exit(Vehicle vehicle) {
